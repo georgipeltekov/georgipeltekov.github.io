@@ -34743,9 +34743,9 @@ var UploadEvent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UploadFile; });
 var UploadFile = (function () {
-    function UploadFile(relativePath, file) {
+    function UploadFile(relativePath, fileEntry) {
         this.relativePath = relativePath;
-        this.file = file;
+        this.fileEntry = fileEntry;
     }
     return UploadFile;
 }());

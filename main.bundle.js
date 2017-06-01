@@ -80,14 +80,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(ref) {
+        this.ref = ref;
         this.title = 'app works!';
         this.files = [];
         this.data = [];
         this.columns = [
             { title: 'Name', name: 'name' },
+            { title: 'Size', name: 'size' },
+            { title: 'Last Modified Date', name: 'modified' },
         ];
         this.config = {
             paging: true,
@@ -99,19 +105,37 @@ var AppComponent = (function () {
         this.numPages = 1;
         this.length = 0;
         this.rows = [];
+        this.units = [
+            'bytes',
+            'KB',
+            'MB',
+            'GB',
+            'TB',
+            'PB'
+        ];
     }
     AppComponent.prototype.dropped = function (event) {
+        var _this = this;
         this.files = event.files;
         this.length = this.files.length;
+        var index = 0;
         for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
             var file = _a[_i];
-            this.rows.push({ name: file.relativePath });
+            file.fileEntry.file(function (fileData) {
+                console.log(fileData);
+                _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
+                index++;
+                if (index == _this.files.length - 1) {
+                    _this.rows = _this.data;
+                    _this.ref.markForCheck();
+                    _this.ref.detectChanges();
+                }
+            });
         }
-        this.data = this.rows;
-        console.log(this.files);
     };
     AppComponent.prototype.onChangeTable = function (config, page) {
         if (page === void 0) { page = { page: this.page, itemsPerPage: this.itemsPerPage }; }
+        console.log("ontable change");
         // let filteredData = this.changeFilter(this.files, this.config);
         this.rows = page && config.paging ? this.changePage(page, this.data) : this.data;
         this.length = this.files.length;
@@ -121,6 +145,18 @@ var AppComponent = (function () {
         var end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
         return data.slice(start, end);
     };
+    AppComponent.prototype.transform = function (bytes, precision) {
+        if (bytes === void 0) { bytes = 0; }
+        if (precision === void 0) { precision = 2; }
+        if (isNaN(parseFloat(String(bytes))) || !isFinite(bytes))
+            return '?';
+        var unit = 0;
+        while (bytes >= 1024) {
+            bytes /= 1024;
+            unit++;
+        }
+        return bytes.toFixed(+precision) + ' ' + this.units[unit];
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
@@ -128,9 +164,11 @@ AppComponent = __decorate([
         selector: 'app-root',
         template: __webpack_require__(157),
         styles: [__webpack_require__(149)]
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === "function" && _a || Object])
 ], AppComponent);
 
+var _a;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
