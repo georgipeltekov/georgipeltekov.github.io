@@ -3,7 +3,7 @@ webpackJsonp([2,4],{
 /***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(30)(false);
+exports = module.exports = __webpack_require__(29)(false);
 // imports
 
 
@@ -28,12 +28,12 @@ module.exports = "<div class=\"container custom\">\n    <div class=\"row\">\n   
 /***/ 190:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(86);
+module.exports = __webpack_require__(85);
 
 
 /***/ }),
 
-/***/ 85:
+/***/ 84:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -42,12 +42,12 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 85;
+webpackEmptyContext.id = 84;
 
 
 /***/ }),
 
-/***/ 86:
+/***/ 85:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -117,6 +117,8 @@ var AppComponent = (function () {
     AppComponent.prototype.dropped = function (event) {
         var _this = this;
         this.files = event.files;
+        this.data = [];
+        this.rows = [];
         this.length = this.files.length;
         var index = 0;
         for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
@@ -125,8 +127,9 @@ var AppComponent = (function () {
                 console.log(fileData);
                 _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
                 index++;
-                if (index == _this.files.length - 1) {
-                    _this.rows = _this.data;
+                if (index == _this.files.length || index == _this.itemsPerPage) {
+                    _this.rows = _this.data.slice(0, _this.itemsPerPage);
+                    _this.length = _this.files.length;
                     _this.ref.markForCheck();
                     _this.ref.detectChanges();
                 }
@@ -177,10 +180,10 @@ var _a;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(89);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ngx_file_drop_lib_ngx_drop__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_table_ng2_table__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_table_ng2_table___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng2_table_ng2_table__);
