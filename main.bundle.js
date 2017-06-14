@@ -123,22 +123,26 @@ var AppComponent = (function () {
         var index = 0;
         for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
             var file = _a[_i];
-            file.fileEntry.file(function (fileData) {
-                console.log(fileData);
-                _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
+            if (file.fileEntry.file) {
+                file.fileEntry.file(function (fileData) {
+                    console.log(fileData);
+                    _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
+                    index++;
+                    if (index == _this.files.length || index == _this.itemsPerPage) {
+                        _this.rows = _this.data.slice(0, _this.itemsPerPage);
+                        _this.length = _this.files.length;
+                        _this.ref.markForCheck();
+                        _this.ref.detectChanges();
+                    }
+                });
+            }
+            else {
                 index++;
-                if (index == _this.files.length || index == _this.itemsPerPage) {
-                    _this.rows = _this.data.slice(0, _this.itemsPerPage);
-                    _this.length = _this.files.length;
-                    _this.ref.markForCheck();
-                    _this.ref.detectChanges();
-                }
-            });
+            }
         }
     };
     AppComponent.prototype.onChangeTable = function (config, page) {
         if (page === void 0) { page = { page: this.page, itemsPerPage: this.itemsPerPage }; }
-        console.log("ontable change");
         // let filteredData = this.changeFilter(this.files, this.config);
         this.rows = page && config.paging ? this.changePage(page, this.data) : this.data;
         this.length = this.files.length;
