@@ -32465,7 +32465,9 @@ var FileComponent = (function () {
         event.preventDefault();
     };
     FileComponent.prototype.ngOnDestroy = function () {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     };
     return FileComponent;
 }());
