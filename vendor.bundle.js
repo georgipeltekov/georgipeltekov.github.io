@@ -32393,10 +32393,25 @@ var FileComponent = (function () {
         var _this = this;
         this.dragoverflag = false;
         event.dataTransfer.dropEffect = "copy";
-        var length = event.dataTransfer.items.length;
+        var length;
+        if (event.dataTransfer.items) {
+            length = event.dataTransfer.items.length;
+        }
+        else {
+            length = event.dataTransfer.files.length;
+        }
         for (var i = 0; i < length; i++) {
-            var entry = event.dataTransfer.items[i].webkitGetAsEntry();
-            entry.getme;
+            var entry;
+            if (event.dataTransfer.items) {
+                if (event.dataTransfer.items[i].webkitGetAsEntry) {
+                    entry = event.dataTransfer.items[i].webkitGetAsEntry();
+                }
+            }
+            else {
+                if (event.dataTransfer.files[i].webkitGetAsEntry) {
+                    entry = event.dataTransfer.files[i].webkitGetAsEntry();
+                }
+            }
             if (entry.isFile) {
                 var toUpload = new __WEBPACK_IMPORTED_MODULE_2__upload_file_model__["a" /* UploadFile */](entry.name, entry);
                 this.addToQueue(toUpload);
@@ -62608,7 +62623,7 @@ var PaginationModule = (function () {
 /* 156 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"dropZone\"  [className]=\"customstyle\" [class.over]=\"dragoverflag\" \r\n    (drop)=\"dropFiles($event)\" \r\n    (dragover)=\"onDragOver($event)\" (dragleave)=\"onDragLeave($event)\">\r\n    <div class=\"content\">\r\n        {{headertext}}\r\n    </div>\r\n</div>"
+module.exports = "<div id=\"dropZone\"  [className]=\"customstyle\" [class.over]=\"dragoverflag\"\r\n    (drop)=\"dropFiles($event)\"\r\n    (dragover)=\"onDragOver($event)\" (dragleave)=\"onDragLeave($event)\">\r\n    <div class=\"content\">\r\n        <ng-content></ng-content>\r\n        {{headertext}}\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 /* 157 */,
