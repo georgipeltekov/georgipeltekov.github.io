@@ -32353,7 +32353,7 @@ var FileComponent = (function () {
     function FileComponent(zone) {
         var _this = this;
         this.zone = zone;
-        this.headertext = "";
+        this.headertext = '';
         this.customstyle = null;
         this.onFileDrop = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.onFileOver = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
@@ -32370,11 +32370,9 @@ var FileComponent = (function () {
             component: this
         };
         if (!this.customstyle) {
-            this.customstyle = "drop-zone";
+            this.customstyle = 'drop-zone';
         }
     }
-    FileComponent.prototype.ngOnInit = function () {
-    };
     FileComponent.prototype.onDragOver = function (event) {
         if (!this.dragoverflag) {
             this.dragoverflag = true;
@@ -32392,7 +32390,7 @@ var FileComponent = (function () {
     FileComponent.prototype.dropFiles = function (event) {
         var _this = this;
         this.dragoverflag = false;
-        event.dataTransfer.dropEffect = "copy";
+        event.dataTransfer.dropEffect = 'copy';
         var length;
         if (event.dataTransfer.items) {
             length = event.dataTransfer.items.length;
@@ -32423,7 +32421,7 @@ var FileComponent = (function () {
         this.preventAndStop(event);
         var timer = __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_TimerObservable__["TimerObservable"].create(200, 200);
         this.subscription = timer.subscribe(function (t) {
-            if (_this.stack.length == 0) {
+            if (_this.stack.length === 0) {
                 _this.onFileDrop.emit(new __WEBPACK_IMPORTED_MODULE_3__upload_event_model__["a" /* UploadEvent */](_this.files));
                 _this.files = [];
                 _this.subscription.unsubscribe();
@@ -32440,14 +32438,14 @@ var FileComponent = (function () {
         }
         else {
             this.pushToStack(path);
-            path = path + "/";
-            var dirReader = item.createReader();
+            path = path + '/';
+            var dirReader_1 = item.createReader();
             var entries_1 = [];
             var readEntries_1 = function () {
-                dirReader.readEntries(function (res) {
+                dirReader_1.readEntries(function (res) {
                     if (!res.length) {
-                        //add empty folders
-                        if (entries_1.length == 0) {
+                        // add empty folders
+                        if (entries_1.length === 0) {
                             var toUpload_1 = new __WEBPACK_IMPORTED_MODULE_2__upload_file_model__["a" /* UploadFile */](path, item);
                             window['angularComponentRef'].zone.run(function () {
                                 window['angularComponentRef'].addToQueue(toUpload_1);
@@ -32465,7 +32463,7 @@ var FileComponent = (function () {
                         });
                     }
                     else {
-                        //continue with the reading
+                        // continue with the reading
                         entries_1 = entries_1.concat(res);
                         readEntries_1();
                     }
