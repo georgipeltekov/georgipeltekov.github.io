@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { UploadFile, UploadEvent } from 'ngx-file-drop/lib/ngx-drop';
+import { UploadFile, UploadEvent } from 'ngx-file-drop/src/lib/ngx-drop';
 
 
 @Component({
