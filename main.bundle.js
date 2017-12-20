@@ -1,46 +1,53 @@
-webpackJsonp([2,4],{
+webpackJsonp(["main"],{
 
-/***/ 218:
+/***/ "../../../../../src/$$_gendir lazy recursive":
 /***/ (function(module, exports) {
 
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
 }
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 218;
-
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 
 /***/ }),
 
-/***/ 219:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "../../../../../src/app/app.component.css":
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(229);
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
 
 
+// module
+exports.push([module.i, ".custom{\r\n    margin-top: 100px;\r\n}\r\n.center{\r\n    text-align: center;\r\n}\r\n.text-style{\r\n    font-size: 28px;\r\n    padding: 15px;\r\n}\r\n.drop-container{\r\n    padding-top: 20px;\r\n}\r\n.upload-table{\r\n    padding-top: 20px;\r\n}", ""]);
+
+// exports
 
 
-if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["enableProdMode"])();
-}
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=main.js.map
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 227:
+/***/ "../../../../../src/app/app.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container custom\">\r\n  <div class=\"row\">\r\n    <div class=\"center\">\r\n      <span class=\"text-style\">Example of <a _ngcontent-c0=\"\" href=\"https://www.npmjs.com/package/ngx-file-drop\" target=\"_blank\">ngx-file-drop</a> library</span>\r\n      <br>\r\n      <span class=\"text-style\">Drag folder or file and the library will make the traverse for you</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"drop-container\">\r\n      <file-drop headertext=\"Drop files here\" (onFileDrop)=\"dropped($event)\" >\r\n        <span></span>\r\n      </file-drop>\r\n      <div class=\"upload-table\">\r\n        <ng-table [config]=\"config\" (tableChanged)=\"onChangeTable(config)\" [rows]=\"rows\" [columns]=\"columns\">\r\n        </ng-table>\r\n        <pagination *ngIf=\"config.paging\" class=\"pagination-sm\" [(ngModel)]=\"page\" [totalItems]=\"length\" [itemsPerPage]=\"itemsPerPage\"\r\n          [maxSize]=\"maxSize\" [boundaryLinks]=\"true\" [rotate]=\"false\" (pageChanged)=\"onChangeTable(config, $event)\" (numPages)=\"numPages = $event\">\r\n        </pagination>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -134,10 +141,10 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-root',
-        template: __webpack_require__(344),
-        styles: [__webpack_require__(283)]
+        template: __webpack_require__("../../../../../src/app/app.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/app.component.css")]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === "function" && _a || Object])
 ], AppComponent);
@@ -147,20 +154,20 @@ var _a;
 
 /***/ }),
 
-/***/ 228:
+/***/ "../../../../../src/app/app.module.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ngx_file_drop_lib_ngx_drop__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_table_ng2_table__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_table_ng2_table___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_ng2_table_ng2_table__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ngx_bootstrap__ = __webpack_require__(328);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ngx_file_drop__ = __webpack_require__("../../../../ngx-file-drop/ngx-file-drop.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_table_ng2_table__ = __webpack_require__("../../../../ng2-table/ng2-table.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_table_ng2_table___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_ng2_table_ng2_table__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ngx_bootstrap__ = __webpack_require__("../../../../ngx-bootstrap/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -181,7 +188,7 @@ var AppModule = (function () {
     return AppModule;
 }());
 AppModule = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]
         ],
@@ -189,7 +196,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_5_ngx_file_drop_lib_ngx_drop__["a" /* FileDropModule */],
+            __WEBPACK_IMPORTED_MODULE_5_ngx_file_drop__["a" /* FileDropModule */],
             __WEBPACK_IMPORTED_MODULE_6_ng2_table_ng2_table__["Ng2TableModule"],
             __WEBPACK_IMPORTED_MODULE_7_ngx_bootstrap__["a" /* PaginationModule */].forRoot()
         ],
@@ -202,7 +209,7 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 229:
+/***/ "../../../../../src/environments/environment.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -219,38 +226,34 @@ var environment = {
 
 /***/ }),
 
-/***/ 283:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "../../../../../src/main.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(48)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".custom{\r\n    margin-top: 100px;\r\n}\r\n.center{\r\n    text-align: center;\r\n}\r\n.text-style{\r\n    font-size: 28px;\r\n    padding: 15px;\r\n}\r\n.drop-container{\r\n    padding-top: 20px;\r\n}\r\n.upload-table{\r\n    padding-top: 20px;\r\n}", ""]);
-
-// exports
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("../../../platform-browser-dynamic/@angular/platform-browser-dynamic.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 
 
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
 
-/***/ }),
 
-/***/ 344:
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"container custom\">\r\n  <div class=\"row\">\r\n    <div class=\"center\">\r\n      <span class=\"text-style\">Example of <a _ngcontent-c0=\"\" href=\"https://www.npmjs.com/package/ngx-file-drop\" target=\"_blank\">ngx-file-drop</a> library</span>\r\n      <br>\r\n      <span class=\"text-style\">Drag folder or file and the library will make the traverse for you</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"drop-container\">\r\n      <file-drop headertext=\"Drop files here\" (onFileDrop)=\"dropped($event)\" >\r\n        <span></span>\r\n      </file-drop>\r\n      <div class=\"upload-table\">\r\n        <ng-table [config]=\"config\" (tableChanged)=\"onChangeTable(config)\" [rows]=\"rows\" [columns]=\"columns\">\r\n        </ng-table>\r\n        <pagination *ngIf=\"config.paging\" class=\"pagination-sm\" [(ngModel)]=\"page\" [totalItems]=\"length\" [itemsPerPage]=\"itemsPerPage\"\r\n          [maxSize]=\"maxSize\" [boundaryLinks]=\"true\" [rotate]=\"false\" (pageChanged)=\"onChangeTable(config, $event)\" (numPages)=\"numPages = $event\">\r\n        </pagination>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["enableProdMode"])();
+}
+Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */]);
+//# sourceMappingURL=main.js.map
 
 /***/ }),
 
-/***/ 383:
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(219);
+module.exports = __webpack_require__("../../../../../src/main.ts");
 
 
 /***/ })
 
-},[383]);
+},[0]);
 //# sourceMappingURL=main.bundle.js.map
