@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { UploadFile, UploadEvent } from 'ngx-file-drop/src/lib/ngx-drop';
+import { UploadFile, UploadEvent, FileSystemFileEntry } from 'ngx-file-drop';
 
 
 @Component({
@@ -47,9 +47,10 @@ export class AppComponent {
     this.rows = [];
     this.length = this.files.length;
     let index = 0;
-    for (var file of this.files) {
-      if (file.fileEntry.file) {
-        file.fileEntry.file(fileData => {
+    for (const droppedFile of event.files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file(fileData => {
           console.log(fileData);
           this.data.push({ name: this.files[index].relativePath, size: this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
           index++;
