@@ -88,10 +88,11 @@ var AppComponent = (function () {
         this.rows = [];
         this.length = this.files.length;
         var index = 0;
-        for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
-            var file = _a[_i];
-            if (file.fileEntry.file) {
-                file.fileEntry.file(function (fileData) {
+        for (var _i = 0, _a = event.files; _i < _a.length; _i++) {
+            var droppedFile = _a[_i];
+            if (droppedFile.fileEntry.isFile) {
+                var fileEntry = droppedFile.fileEntry;
+                fileEntry.file(function (fileData) {
                     console.log(fileData);
                     _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
                     index++;

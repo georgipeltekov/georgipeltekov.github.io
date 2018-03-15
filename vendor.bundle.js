@@ -80122,6 +80122,11 @@ var TimerObservable = (function (_super) {
     return TimerObservable;
 }(Observable_1.Observable));
 var TimerObservable_2 = TimerObservable;
+/**
+ * fileEntry is an instance of {\@link FileSystemFileEntry} or {\@link FileSystemDirectoryEntry}.
+ * Which one is it can be checked using {\@link FileSystemEntry.isFile} or {\@link FileSystemEntry.isDirectory}
+ * properties of the given {\@link FileSystemEntry}.
+ */
 var UploadFile = (function () {
     /**
      * @param {?} relativePath
@@ -80197,7 +80202,7 @@ var FileComponent = (function () {
         else {
             length = event.dataTransfer.files.length;
         }
-        for (var /** @type {?} */ i = 0; i < length; i++) {
+        var _loop_1 = function (i) {
             var /** @type {?} */ entry = void 0;
             if (event.dataTransfer.items) {
                 if (event.dataTransfer.items[i].webkitGetAsEntry) {
@@ -80210,26 +80215,33 @@ var FileComponent = (function () {
                 }
             }
             if (!entry) {
-                var /** @type {?} */ file = event.dataTransfer.files[i];
-                entry = {
-                    name: file.name,
-                    resultFile: file,
-                    file: function (fileProcess) {
-                        fileProcess(this.resultFile);
-                    }
-                };
-                var /** @type {?} */ /** @type {?} */ toUpload = new UploadFile(entry.name, entry);
-                this.addToQueue(toUpload);
+                var /** @type {?} */ file_1 = event.dataTransfer.files[i];
+                if (file_1) {
+                    var /** @type {?} */ fakeFileEntry = {
+                        name: file_1.name,
+                        isDirectory: false,
+                        isFile: true,
+                        file: function (callback) {
+                            callback(file_1);
+                        }
+                    };
+                    var /** @type {?} */ toUpload = new UploadFile(fakeFileEntry.name, fakeFileEntry);
+                    this_1.addToQueue(toUpload);
+                }
             }
             else {
                 if (entry.isFile) {
                     var /** @type {?} */ toUpload = new UploadFile(entry.name, entry);
-                    this.addToQueue(toUpload);
+                    this_1.addToQueue(toUpload);
                 }
                 else if (entry.isDirectory) {
-                    this.traverseFileTree(entry, entry.name);
+                    this_1.traverseFileTree(entry, entry.name);
                 }
             }
+        };
+        var this_1 = this;
+        for (var /** @type {?} */ i = 0; i < length; i++) {
+            _loop_1(/** @type {?} */ i);
         }
         this.preventAndStop(event);
         var /** @type {?} */ timer = TimerObservable_2.create(200, 200);
@@ -80258,7 +80270,7 @@ var FileComponent = (function () {
         else {
             this.pushToStack(path);
             path = path + '/';
-            var /** @type {?} */ dirReader_1 = item.createReader();
+            var /** @type {?} */ dirReader_1 = ((item)).createReader();
             var /** @type {?} */ entries_1 = [];
             var /** @type {?} */ thisObj_1 = this;
             var /** @type {?} */ readEntries_1 = function () {
@@ -80272,13 +80284,13 @@ var FileComponent = (function () {
                             });
                         }
                         else {
-                            var _loop_1 = function (i) {
+                            var _loop_2 = function (i) {
                                 thisObj_1.zone.run(function () {
                                     thisObj_1.traverseFileTree(entries_1[i], path + entries_1[i].name);
                                 });
                             };
                             for (var /** @type {?} */ i = 0; i < entries_1.length; i++) {
-                                _loop_1(/** @type {?} */ i);
+                                _loop_2(/** @type {?} */ i);
                             }
                         }
                         thisObj_1.zone.run(function () {
