@@ -80150,19 +80150,30 @@ var UploadEvent = (function () {
 var FileComponent = (function () {
     /**
      * @param {?} zone
+     * @param {?} renderer
      */
-    function FileComponent(zone) {
+    function FileComponent(zone, renderer) {
+        var _this = this;
         this.zone = zone;
+        this.renderer = renderer;
         this.headertext = '';
         this.customstyle = null;
+        this.disableIf = false;
         this.onFileDrop = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.onFileOver = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.onFileLeave = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.stack = [];
         this.files = [];
         this.dragoverflag = false;
+        this.globalDisable = false;
         if (!this.customstyle) {
             this.customstyle = 'drop-zone';
+            this.globalStart = this.renderer.listen('document', 'dragstart', function (evt) {
+                _this.globalDisable = true;
+            });
+            this.globalEnd = this.renderer.listen('document', 'dragend', function (evt) {
+                _this.globalDisable = false;
+            });
         }
     }
     /**
@@ -80170,22 +80181,26 @@ var FileComponent = (function () {
      * @return {?}
      */
     FileComponent.prototype.onDragOver = function (event) {
-        if (!this.dragoverflag) {
-            this.dragoverflag = true;
-            this.onFileOver.emit(event);
+        if (!this.globalDisable && !this.disableIf) {
+            if (!this.dragoverflag) {
+                this.dragoverflag = true;
+                this.onFileOver.emit(event);
+            }
+            this.preventAndStop(event);
         }
-        this.preventAndStop(event);
     };
     /**
      * @param {?} event
      * @return {?}
      */
     FileComponent.prototype.onDragLeave = function (event) {
-        if (this.dragoverflag) {
-            this.dragoverflag = false;
-            this.onFileLeave.emit(event);
+        if (!this.globalDisable && !this.disableIf) {
+            if (this.dragoverflag) {
+                this.dragoverflag = false;
+                this.onFileLeave.emit(event);
+            }
+            this.preventAndStop(event);
         }
-        this.preventAndStop(event);
     };
     /**
      * @param {?} event
@@ -80193,65 +80208,67 @@ var FileComponent = (function () {
      */
     FileComponent.prototype.dropFiles = function (event) {
         var _this = this;
-        this.dragoverflag = false;
-        event.dataTransfer.dropEffect = 'copy';
-        var /** @type {?} */ length;
-        if (event.dataTransfer.items) {
-            length = event.dataTransfer.items.length;
-        }
-        else {
-            length = event.dataTransfer.files.length;
-        }
-        var _loop_1 = function (i) {
-            var /** @type {?} */ entry = void 0;
+        if (!this.globalDisable && !this.disableIf) {
+            this.dragoverflag = false;
+            event.dataTransfer.dropEffect = 'copy';
+            var /** @type {?} */ length = void 0;
             if (event.dataTransfer.items) {
-                if (event.dataTransfer.items[i].webkitGetAsEntry) {
-                    entry = event.dataTransfer.items[i].webkitGetAsEntry();
-                }
+                length = event.dataTransfer.items.length;
             }
             else {
-                if (event.dataTransfer.files[i].webkitGetAsEntry) {
-                    entry = event.dataTransfer.files[i].webkitGetAsEntry();
-                }
+                length = event.dataTransfer.files.length;
             }
-            if (!entry) {
-                var /** @type {?} */ file_1 = event.dataTransfer.files[i];
-                if (file_1) {
-                    var /** @type {?} */ fakeFileEntry = {
-                        name: file_1.name,
-                        isDirectory: false,
-                        isFile: true,
-                        file: function (callback) {
-                            callback(file_1);
-                        }
-                    };
-                    var /** @type {?} */ toUpload = new UploadFile(fakeFileEntry.name, fakeFileEntry);
-                    this_1.addToQueue(toUpload);
+            var _loop_1 = function (i) {
+                var /** @type {?} */ entry = void 0;
+                if (event.dataTransfer.items) {
+                    if (event.dataTransfer.items[i].webkitGetAsEntry) {
+                        entry = event.dataTransfer.items[i].webkitGetAsEntry();
+                    }
                 }
+                else {
+                    if (event.dataTransfer.files[i].webkitGetAsEntry) {
+                        entry = event.dataTransfer.files[i].webkitGetAsEntry();
+                    }
+                }
+                if (!entry) {
+                    var /** @type {?} */ file_1 = event.dataTransfer.files[i];
+                    if (file_1) {
+                        var /** @type {?} */ fakeFileEntry = {
+                            name: file_1.name,
+                            isDirectory: false,
+                            isFile: true,
+                            file: function (callback) {
+                                callback(file_1);
+                            }
+                        };
+                        var /** @type {?} */ toUpload = new UploadFile(fakeFileEntry.name, fakeFileEntry);
+                        this_1.addToQueue(toUpload);
+                    }
+                }
+                else {
+                    if (entry.isFile) {
+                        var /** @type {?} */ toUpload = new UploadFile(entry.name, entry);
+                        this_1.addToQueue(toUpload);
+                    }
+                    else if (entry.isDirectory) {
+                        this_1.traverseFileTree(entry, entry.name);
+                    }
+                }
+            };
+            var this_1 = this;
+            for (var /** @type {?} */ i = 0; i < length; i++) {
+                _loop_1(/** @type {?} */ i);
             }
-            else {
-                if (entry.isFile) {
-                    var /** @type {?} */ toUpload = new UploadFile(entry.name, entry);
-                    this_1.addToQueue(toUpload);
+            this.preventAndStop(event);
+            var /** @type {?} */ timer = TimerObservable_2.create(200, 200);
+            this.subscription = timer.subscribe(function (t) {
+                if (_this.stack.length === 0) {
+                    _this.onFileDrop.emit(new UploadEvent(_this.files));
+                    _this.files = [];
+                    _this.subscription.unsubscribe();
                 }
-                else if (entry.isDirectory) {
-                    this_1.traverseFileTree(entry, entry.name);
-                }
-            }
-        };
-        var this_1 = this;
-        for (var /** @type {?} */ i = 0; i < length; i++) {
-            _loop_1(/** @type {?} */ i);
+            });
         }
-        this.preventAndStop(event);
-        var /** @type {?} */ timer = TimerObservable_2.create(200, 200);
-        this.subscription = timer.subscribe(function (t) {
-            if (_this.stack.length === 0) {
-                _this.onFileDrop.emit(new UploadEvent(_this.files));
-                _this.files = [];
-                _this.subscription.unsubscribe();
-            }
-        });
     };
     /**
      * @param {?} item
@@ -80348,6 +80365,8 @@ var FileComponent = (function () {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+        this.globalStart();
+        this.globalEnd();
     };
     return FileComponent;
 }());
@@ -80363,10 +80382,12 @@ FileComponent.decorators = [
  */
 FileComponent.ctorParameters = function () { return [
     { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], },
 ]; };
 FileComponent.propDecorators = {
     'headertext': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] },],
     'customstyle': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] },],
+    'disableIf': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] },],
     'onFileDrop': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
     'onFileOver': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
     'onFileLeave': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
