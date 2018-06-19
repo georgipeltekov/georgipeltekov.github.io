@@ -42,6 +42,7 @@ export class AppComponent {
   }
 
   public dropped(event: UploadEvent) {
+    console.log("dropped")
     this.files = event.files;
     this.data = [];
     this.rows = [];
@@ -51,7 +52,7 @@ export class AppComponent {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file(fileData => {
-          console.log(fileData);
+          // console.log(fileData);
           this.data.push({ name: this.files[index].relativePath, size: this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
           index++;
           if (index == this.files.length || index == this.itemsPerPage) {
