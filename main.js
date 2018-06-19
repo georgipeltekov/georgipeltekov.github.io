@@ -98,6 +98,7 @@ var AppComponent = /** @class */ (function () {
     }
     AppComponent.prototype.dropped = function (event) {
         var _this = this;
+        console.log("dropped");
         this.files = event.files;
         this.data = [];
         this.rows = [];
@@ -108,7 +109,7 @@ var AppComponent = /** @class */ (function () {
             if (droppedFile.fileEntry.isFile) {
                 var fileEntry = droppedFile.fileEntry;
                 fileEntry.file(function (fileData) {
-                    console.log(fileData);
+                    // console.log(fileData);
                     _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
                     index++;
                     if (index == _this.files.length || index == _this.itemsPerPage) {
