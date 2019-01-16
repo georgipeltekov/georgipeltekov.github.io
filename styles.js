@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\prj\github.io\georgipeltekov.github.io\sources\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! c:\prj\georgipeltekov.github.io\sources\src\styles.css */"./src/styles.css");
 
 
 /***/ })

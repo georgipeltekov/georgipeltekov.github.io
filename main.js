@@ -110,7 +110,14 @@ var AppComponent = /** @class */ (function () {
                 var fileEntry = droppedFile.fileEntry;
                 fileEntry.file(function (fileData) {
                     // console.log(fileData);
-                    _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
+                    var modifiedDate;
+                    if (fileData.lastModifiedDate) {
+                        modifiedDate = fileData.lastModifiedDate.toLocaleString();
+                    }
+                    else if (fileData.lastModified) {
+                        modifiedDate = fileData.lastModified.toLocaleString();
+                    }
+                    _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: modifiedDate });
                     index++;
                     if (index == _this.files.length || index == _this.itemsPerPage) {
                         _this.rows = _this.data.slice(0, _this.itemsPerPage);
@@ -178,7 +185,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var ngx_file_drop__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-file-drop */ "./node_modules/ngx-file-drop/esm5/ngx-file-drop.js");
+/* harmony import */ var ngx_file_drop__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-file-drop */ "./node_modules/ngx-file-drop/fesm5/ngx-file-drop.js");
 /* harmony import */ var ng2_table_ng2_table__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng2-table/ng2-table */ "./node_modules/ng2-table/ng2-table.js");
 /* harmony import */ var ng2_table_ng2_table__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(ng2_table_ng2_table__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/index.js");
@@ -276,7 +283,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\prj\github.io\georgipeltekov.github.io\sources\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! c:\prj\georgipeltekov.github.io\sources\src\main.ts */"./src/main.ts");
 
 
 /***/ })

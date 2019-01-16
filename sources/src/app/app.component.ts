@@ -53,7 +53,14 @@ export class AppComponent {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file(fileData => {
           // console.log(fileData);
-          this.data.push({ name: this.files[index].relativePath, size: this.transform(fileData.size), modified: fileData.lastModifiedDate.toLocaleString() });
+          let modifiedDate;
+          if(fileData.lastModifiedDate){
+            modifiedDate = fileData.lastModifiedDate.toLocaleString();
+          } else if (fileData.lastModified) {
+            modifiedDate = fileData.lastModified.toLocaleString();
+          }
+          
+          this.data.push({ name: this.files[index].relativePath, size: this.transform(fileData.size), modified: modifiedDate });
           index++;
           if (index == this.files.length || index == this.itemsPerPage) {
             this.rows = this.data.slice(0, this.itemsPerPage);
