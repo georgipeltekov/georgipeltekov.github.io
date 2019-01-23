@@ -53,12 +53,7 @@ export class AppComponent {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file(fileData => {
           // console.log(fileData);
-          let modifiedDate;
-          if(fileData.lastModifiedDate){
-            modifiedDate = fileData.lastModifiedDate.toLocaleString();
-          } else if (fileData.lastModified) {
-            modifiedDate = fileData.lastModified.toLocaleString();
-          }
+          let modifiedDate = fileData.lastModified.toLocaleString();
           
           this.data.push({ name: this.files[index].relativePath, size: this.transform(fileData.size), modified: modifiedDate });
           index++;

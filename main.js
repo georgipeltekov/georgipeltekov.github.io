@@ -110,13 +110,7 @@ var AppComponent = /** @class */ (function () {
                 var fileEntry = droppedFile.fileEntry;
                 fileEntry.file(function (fileData) {
                     // console.log(fileData);
-                    var modifiedDate;
-                    if (fileData.lastModifiedDate) {
-                        modifiedDate = fileData.lastModifiedDate.toLocaleString();
-                    }
-                    else if (fileData.lastModified) {
-                        modifiedDate = fileData.lastModified.toLocaleString();
-                    }
+                    var modifiedDate = fileData.lastModified.toLocaleString();
                     _this.data.push({ name: _this.files[index].relativePath, size: _this.transform(fileData.size), modified: modifiedDate });
                     index++;
                     if (index == _this.files.length || index == _this.itemsPerPage) {
@@ -283,7 +277,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! c:\prj\georgipeltekov.github.io\sources\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\prj\georgipeltekov.github.io\sources\src\main.ts */"./src/main.ts");
 
 
 /***/ })
