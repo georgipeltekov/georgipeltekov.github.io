@@ -1,22 +1,36 @@
 <div class="container custom">
+  <a href="https://github.com/georgipeltekov/ngx-file-drop" class="float-end">
+    <img src="assets/GitHub-Mark-32px.png" alt="GitHub Logo">
+  </a>
   <div class="row">
     <div class="center">
-      <span class="text-style">Example of <a _ngcontent-c0="" href="https://www.npmjs.com/package/ngx-file-drop" target="_blank">ngx-file-drop</a> library</span>
+      <span class="text-style">Example of <a href="https://www.npmjs.com/package/ngx-file-drop" target="_blank">ngx-file-drop</a> library</span>
       <br>
       <span class="text-style">Drag folder or file and the library will make the traverse for you</span>
     </div>
   </div>
   <div class="row">
     <div class="drop-container">
-      <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" >
+      <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
         <span></span>
-      </file-drop>
-      <div class="upload-table">
-        <ng-table [config]="config" (tableChanged)="onChangeTable(config)" [rows]="rows" [columns]="columns">
-        </ng-table>
-        <pagination *ngIf="config.paging" class="pagination-sm" [(ngModel)]="page" [totalItems]="length" [itemsPerPage]="itemsPerPage"
-          [maxSize]="maxSize" [boundaryLinks]="true" [rotate]="false" (pageChanged)="onChangeTable(config, $event)" (numPages)="numPages = $event">
-        </pagination>
+      </ngx-file-drop>
+      <div class="table-responsive upload-table" *ngIf="data.length > 0">
+        <table class="table">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Size</td>
+              <td>Last Modified Date</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of data">
+              <td>{{file.name}}</td>
+              <td>{{file.size}}</td>
+              <td>{{file.modified}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
